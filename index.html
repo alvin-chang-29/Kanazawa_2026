@@ -1,0 +1,515 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#126f8f">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="金澤行程">
+<meta name="description" content="2026 北陸親子旅行：地圖編排行程、整組交換主題、離線查看旅程。">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="192x192" href="./icons/icon-192.png">
+<link rel="apple-touch-icon" href="./icons/apple-touch-icon.png"><title>金澤・能登｜北陸家庭旅行 PWA</title><style>
+:root{--ink:#243e50;--muted:#607988;--sea:#d6f0fc;--blue:#1f78bd;--teal:#087e80;--edge:#d8e7ed}
+*{box-sizing:border-box}body{margin:0;font:15px/1.55 -apple-system,BlinkMacSystemFont,"Noto Sans TC","Microsoft JhengHei",sans-serif;background:#eff8fb;color:var(--ink)}button,input,select{font:inherit}button{cursor:pointer}a{color:#0a7483}.page{max-width:1740px;margin:auto;padding:14px}
+.hero{background:linear-gradient(110deg,#ddf2ff,#fcfeff 68%,#fff1e5);border:1px solid #d0e5ef;border-radius:24px;padding:16px 23px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}.hero h1{font-size:clamp(28px,3vw,48px);line-height:1.15;color:#12326e;margin:0}.hero h1 em{font-style:normal;background:#ff5189;color:#fff;border-radius:15px;padding:0 9px}.hero p{margin:7px 0;color:#41647a}.badges{display:flex;gap:8px;flex-wrap:wrap}.badge{background:#fff;border:1px solid #d1e3ed;border-radius:999px;padding:6px 11px;font-size:12px;font-weight:800}.main{display:grid;grid-template-columns:minmax(0,3fr) minmax(280px,1fr);gap:14px;margin-top:14px;align-items:start}.map-panel,.sidebar,.below{background:#fff;border:1px solid var(--edge);border-radius:20px;box-shadow:0 8px 30px #174a6710;overflow:hidden}.tabs{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:5px;padding:10px;background:#f7fbfe}.day-tab{border:1px solid #d9e5ec;background:#fff;border-radius:12px;padding:7px 3px;min-width:0;text-align:center}.day-tab b{display:block;font-size:17px}.day-tab small{display:block;font-size:11px;color:#6c8491}.day-tab.active{background:#146f8f;color:white}.day-tab.active small{color:#e4f5f9}.day-tab.drop{outline:3px dashed #ffac28}.map-top{display:flex;flex-wrap:wrap;gap:8px;justify-content:space-between;align-items:center;padding:9px 12px}.map-top strong{font-size:16px}.map-top .sub{font-size:12px;color:#577487}.map-top button{border:1px solid #cde2e9;color:#176e80;border-radius:10px;background:#fff;padding:6px 10px;font-weight:700}.map{position:relative;width:100%;height:790px;background:linear-gradient(160deg,#cfefff,#eaf8fd);overflow:hidden;isolation:isolate}.geo{position:absolute;inset:0;width:100%;height:100%}.map-word{position:absolute;z-index:1;pointer-events:none;font-size:12px;font-weight:900;color:#5e9674;text-shadow:0 1px 0 white}.map-word.sea{font-size:28px;color:#71b9d5;left:4%;top:17%;opacity:.72}.region{position:absolute;z-index:2;background:#ffffffd9;border:1px solid #ffffff;border-radius:10px;padding:4px 7px;font-size:12px;font-weight:800;color:#3e705b;pointer-events:none}.hub{position:absolute;z-index:3;transform:translate(-50%,-50%);border:3px solid #fff;border-radius:14px;background:#f54a83;color:white;box-shadow:0 4px 14px #b528604d;padding:4px 8px;text-align:center;pointer-events:none;min-width:102px;font-weight:900;font-size:15px;line-height:1.3}.hub small{display:block;font-size:10px;font-weight:600}.pin{position:absolute;z-index:5;transform:translate(-50%,-50%);border:2px solid #fff;border-radius:13px;box-shadow:0 4px 12px #15395136;padding:5px 7px;display:flex;align-items:center;gap:6px;background:#fff;max-width:155px;min-width:83px;text-align:left}.pin i{font-style:normal;font-size:18px}.pin .name{font-size:12px;line-height:1.23;font-weight:800}.pin .num{display:inline-flex;font-size:10px;color:#fff;padding:1px 4px;border-radius:5px;white-space:nowrap;margin-top:3px}.pin.active{outline:4px solid #ffd458;z-index:8}.pin.faded{opacity:.45}.pin.dragging{opacity:.5}.pin.drop-before{outline:3px dashed #ff9e24}.map-empty{position:absolute;z-index:4;left:50%;top:40%;transform:translate(-50%,-50%);background:#ffffffed;border-radius:15px;padding:15px 20px;font-weight:800;color:#466779;box-shadow:0 6px 24px #174a6722}.map-order{position:absolute;left:12px;right:12px;bottom:12px;background:#fffefaef;border:1px solid #dce5df;border-radius:14px;padding:10px;z-index:10;box-shadow:0 5px 25px #1649682b;backdrop-filter:blur(8px)}.order-head{display:flex;justify-content:space-between;gap:8px;align-items:center;font-size:13px;margin-bottom:7px}.order-head strong{font-size:15px;color:#1a556b}.order-list{display:flex;gap:7px;overflow-x:auto;padding:3px 0 9px;scrollbar-width:thin}.order-card{min-width:135px;max-width:205px;border:1px solid #dce8ed;background:#fff;border-radius:10px;padding:8px;display:grid;gap:4px;cursor:grab;flex:none}.order-card.selected{border:2px solid #efa93d;background:#fffcf0}.order-card.drop-before{outline:3px dashed #edaa35}.order-card .top{font-size:12px;font-weight:900;display:flex;gap:6px;align-items:center}.order-card small{font-size:11px;color:#5e7a85}.order-actions{display:flex;gap:4px}.order-actions button{padding:1px 7px;border:1px solid #d1e2e8;background:#f8fbfc;border-radius:8px;font-size:12px}.route-pill{font-size:11px;white-space:nowrap;color:#5a7480;align-self:center;min-width:78px;text-align:center;flex:none}.legend{display:flex;flex-wrap:wrap;gap:9px;padding:9px 12px;font-size:11px;color:#607a87;background:#f8fbfe}.key{display:inline-flex;align-items:center;gap:5px}.dot{width:9px;height:9px;border-radius:50%}.sidebar{padding:15px;position:sticky;top:10px}.sidebar h2{font-size:21px;margin:0 0 9px;color:#15476c}.panel{border:1px solid #dce9ee;background:#f8fcfd;border-radius:13px;padding:11px;margin:10px 0}.panel h3{font-size:15px;margin:0 0 6px}.control{display:grid;gap:5px;font-size:12px;font-weight:700;margin:9px 0;color:#56717c}.control select,.control input{background:#fff;border:1px solid #cadde5;border-radius:9px;padding:8px;color:#1f4758;min-width:0}.buttons{display:flex;flex-wrap:wrap;gap:6px}.buttons button,.action{border:1px solid #c7dce5;background:white;color:#0a7280;font-weight:800;border-radius:9px;padding:7px 11px}.buttons .primary,.primary{background:#0a7e82!important;color:#fff!important;border-color:#0a7e82!important}.status{font-size:12px;color:#65808e;line-height:1.6}.wx{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin-top:8px}.wx-day{background:white;border:1px solid #d5e6ec;border-radius:9px;padding:7px;display:grid;gap:3px}.wx-day b{font-size:12px}.wx-day select{padding:5px;border:1px solid #d1dfe5;border-radius:8px;font-size:12px;max-width:100%}.wx-day small{font-size:11px;color:#64818e}.warning{background:#fff5e6;border:1px solid #f2d9a5;border-radius:10px;padding:9px 11px;font-size:12px;color:#82622f;margin-top:9px}.below{padding:16px;margin-top:14px}.below h2{margin:0 0 9px;color:#15476c}.day-cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.day-card{border:1px solid #dce8ed;border-radius:14px;overflow:hidden}.day-card header{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:9px 11px;background:#f1f9fc;font-weight:900}.day-card .legs{padding:9px 12px;font-size:12px;line-height:1.65}.day-card .legs p{margin:5px 0}.todo{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.todo label{border:1px solid #dce8ec;border-radius:11px;padding:9px;display:flex;gap:8px;font-size:13px;align-items:flex-start}.small{font-size:12px;color:#69818e}.footer{font-size:11px;color:#6e8793;padding:10px 0}.mobile-day-switch{display:none}
+@media(max-width:1200px){.main{grid-template-columns:minmax(0,2fr) minmax(260px,1fr)}.map{height:720px}}
+@media(max-width:850px){.main{grid-template-columns:1fr}.sidebar{position:static}.map{height:690px}.tabs{grid-template-columns:repeat(5,minmax(0,1fr))}.day-cards{grid-template-columns:1fr}}
+@media(max-width:480px){.page{padding:7px}.hero{padding:13px;border-radius:15px}.hero p{font-size:13px}.badges{gap:4px}.badge{font-size:10px;padding:4px 7px}.map{height:620px}.pin{min-width:0;max-width:100px;padding:3px 4px;gap:3px}.pin .name{font-size:10px}.pin i{font-size:14px}.hub{font-size:11px;min-width:70px}.hub small{font-size:9px}.region{font-size:10px}.wx{grid-template-columns:repeat(2,minmax(0,1fr))}.todo{grid-template-columns:1fr}}
+@media print{.tabs,.sidebar,.map-top button,.order-actions,.footer{display:none}.main{grid-template-columns:1fr}.map{height:650px}.below{break-before:page}}
+</style><style>.region-pop{position:absolute;z-index:5;transform:translate(-50%,-50%);border:3px solid var(--pop);background:#ffffffeb;box-shadow:0 7px 20px #19506b27;border-radius:16px;min-width:160px;max-width:195px;padding:9px;text-align:center}.region-pop strong{display:block;font-size:15px;line-height:1.2;color:#24475a}.region-pop span{display:block;font-size:11px;color:#617d89;margin:4px 0}.region-days{display:flex;gap:4px;justify-content:center;flex-wrap:wrap}.region-day{padding:3px 6px!important;border:1px solid var(--pop);border-radius:7px!important;background:#fff!important;font-size:11px!important;color:#21536c!important}.region-day:hover{background:#fff7d5!important}@media(max-width:500px){.region-pop{min-width:100px;max-width:125px;padding:5px;border-width:2px}.region-pop strong{font-size:11px}.region-pop span{font-size:10px}.region-day{font-size:10px!important}}</style><style>
+.install-area,.theme-first{margin-top:12px;border:1px solid #d5e7ec;background:white;border-radius:17px;padding:13px 16px;box-shadow:0 5px 20px #174a6710}
+.install-area,.install-intro,.install-buttons,.theme-top,.theme-target{display:flex;align-items:center;gap:12px;flex-wrap:wrap}.install-area{justify-content:space-between}
+.install-intro strong{font-size:16px;color:#15476c}.install-intro span,.theme-top span{font-size:12px;color:#597787}.install-buttons{gap:7px}
+.help-panel{background:#fffbea;border:1px solid #f1da99;border-radius:13px;padding:13px 17px;margin:9px 0;font-size:14px;line-height:1.7}.help-panel h3{margin:0 0 5px}.help-panel p{margin:7px 0}.help-panel code{white-space:normal}
+.theme-top{justify-content:space-between;margin-bottom:9px}.theme-top strong{font-size:17px;color:#15476c}
+.theme-card-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:7px}.theme-card{min-width:0;background:#f6fbfd;border:2px solid #dbe7ed;border-radius:12px;padding:9px 6px;text-align:left;min-height:76px}.theme-card.selected{background:#eaf8f5;border-color:#0a7e82;box-shadow:0 0 0 2px #9ddbd2 inset}.theme-card .emoji{font-size:22px;display:block}.theme-card strong{font-size:12px;display:block;line-height:1.35}.theme-card small{font-size:10px;display:block;color:#66808b;margin-top:2px}.theme-target{margin-top:10px}.theme-target select{border:1px solid #cde0e7;border-radius:10px;padding:8px;background:white;max-width:100%}
+#quickMoveTheme,#quickSwapTheme{padding:8px 11px}
+button,select{touch-action:manipulation}.map{touch-action:pan-y}
+@media(max-width:1150px){.theme-card-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:650px){.install-area{padding:11px}.theme-first{padding:10px}.theme-card-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.theme-target button{flex:1}.hero{padding:15px}.map{height:670px}.pin{touch-action:manipulation}}
+@media print{.install-area,.help-panel,.theme-first{display:none!important}}
+</style></head><body><div class="page">
+<header class="hero"><div><h1>日本北陸 <em>金澤</em> 動態旅行地圖</h1><p>地圖上直接選景點、改日期與順序，依天氣彈性安排 8 天 7 夜</p></div><div class="badges"><span class="badge">CI370｜12/03 出發</span><span class="badge">CI371｜12/10 返台</span><span class="badge">INOVA Kanazawa｜7 晚</span></div></header>
+<section class="install-area" aria-label="安裝與離線使用">
+ <div class="install-intro"><strong>📲 金澤行程 App</strong><span id="connectionState">行程儲存在目前裝置；安裝後可離線查看及編輯</span></div>
+ <div class="install-buttons"><button id="installPwa" class="primary" hidden>安裝 App</button><button id="installHelp">iPhone / iPad / Edge 安裝教學</button><button id="backupHelp">跨裝置搬移行程</button></div>
+</section>
+<div id="helpPanel" class="help-panel" hidden aria-live="polite"></div>
+<section class="theme-first" aria-label="快速切換整日主題"><div class="theme-top"><strong>🧩 一天一個主題：整組安排</strong><span>先選主題，再選日期；「對調」會交換兩天主題，不必逐景點搬動</span></div><div id="themeCards" class="theme-card-grid"></div><div class="theme-target">目標日期 <select id="quickThemeDay" aria-label="整組移動目標日期"></select><button id="quickMoveTheme" class="primary">整組移到這天</button><button id="quickSwapTheme">與這天對調</button><span id="themeHint" class="small"></span></div></section>
+<div class="main"><section class="map-panel"><div class="tabs" id="dayTabs"></div><div class="map-top"><div><strong id="mapTitle">北陸全區</strong><div class="sub" id="mapSub">按日期僅顯示該日景點；拖曳地圖標籤至其它景點或日期，調整行程。</div></div><button id="showAll">顯示全部景點</button></div><div class="map" id="mapStage"><svg class="geo" viewBox="0 0 1120 840" id="geoSvg" aria-label="北陸真實地理比例簡化海岸線"></svg><div id="mapPins"></div><div class="map-order"><div class="order-head"><strong id="orderTitle">當天順序</strong><span id="orderStats" class="small"></span></div><div class="order-list" id="orderList"></div></div></div><div class="legend" id="legend"></div></section>
+<aside class="sidebar"><h2>地圖行程編輯</h2><div class="status">點地圖標籤即可編輯；將標籤拖到上方日期按鈕可改日期。下方當日卡片支援拖曳排序，手機可用 ↑ ↓。</div><div id="spotEditor" class="panel"></div><div class="panel"><h3>🌦️ 天氣與日期調整</h3><div class="status">可先手動標註。接近出發時（16 天內），可嘗試取得逐日天氣預報。交換日期前請確認已訂門票與能登路況。</div><div class="wx" id="weatherGrid"></div><div class="buttons" style="margin-top:9px"><button id="fetchWx">取得線上預報</button></div><div id="wxStatus" class="status" style="margin-top:5px">目前可先手動標註天氣。</div><div class="control"><label>一次搬整個主題區域</label><div class="buttons"><select id="themeKey" aria-label="主題區域"></select><select id="themeDay" aria-label="目標日期"></select><button id="moveThemeBtn" class="primary">搬到這一天</button><button id="swapThemeBtn">與這一天對調</button></div><div class="status">建議用在「一天一個主題區域」：例如把「金澤經典」整組換到 12/5，不必一個一個改。</div></div><div class="control"><label>交換兩天的景點</label><div class="buttons"><select id="swapA" aria-label="交換來源日期"></select><select id="swapB" aria-label="交換目標日期"></select><button id="swapBtn" class="primary">交換</button></div></div><div id="wxAdvice" class="warning"></div></div><div class="buttons"><button id="exportTxt">匯出 TXT</button><button id="exportJson">備份行程 JSON</button><label class="action" for="importJson">匯入設定</label><input id="importJson" type="file" accept=".json,application/json" style="display:none"><button id="reset" title="還原預設行程">還原</button></div><div id="status" class="status" role="status" style="margin-top:8px"></div></aside></div>
+<section class="below" id="itinerary"><h2>每日行程與交通時間</h2><div class="small">隨地圖日期與順序即時更新。開車／鐵路／公車時間為規劃估值，請使用導航與實際班表確認；雨雪及道路修復期間需增加緩衝。</div><div class="day-cards" id="dayCards"></div></section>
+<section class="below"><h2>出發前確認事項</h2><div class="todo" id="todo"></div></section><div class="footer">底圖：依經緯度繪製的北陸海岸線概略圖，保留能登半島與富山灣位置關係；不是道路導航圖。天氣：Open-Meteo（連網時）。</div></div>
+<script>
+const DATES={1:'12/03',2:'12/04',3:'12/05',4:'12/06',5:'12/07',6:'12/08',7:'12/09',8:'12/10'};
+const LONG_DATES={1:'12/03（四）',2:'12/04（五）',3:'12/05（六）',4:'12/06（日）',5:'12/07（一）',6:'12/08（二）',7:'12/09（三）',8:'12/10（四）'};
+const DAYCOLORS={1:'#778896',2:'#2f91de',3:'#f0942d',4:'#f84f8b',5:'#8a5de1',6:'#32a760',7:'#2f91de',8:'#778896'};
+const HOTEL={id:'hotel',name:'INOVA Kanazawa',icon:'🏨',area:'金澤住宿',reg:'kanazawa',kind:'fixed',stay:0};
+const AIRPORT={id:'airport',name:'富山機場',icon:'✈️',area:'富山',reg:'toyama',kind:'fixed',stay:0};
+const spots=[
+ {id:'station',name:'金澤站・鼓門',area:'金澤站',reg:'kanazawa',icon:'🚉',kind:'mixed',stay:25,note:'可與寶可夢中心同天。',url:'https://visitkanazawa.jp/en/attractions/detail_10042.html'},
+ {id:'pokemon',name:'金澤寶可夢中心',area:'金澤站',reg:'kanazawa',icon:'⚡',kind:'indoor',stay:70,note:'下雨時很好安排。',url:'https://shop.pokemon.co.jp/en/shop/pokemoncenter-kanazawa/'},
+ {id:'omicho',name:'近江町市場',area:'金澤',reg:'kanazawa',icon:'🍣',kind:'mixed',stay:65,note:'適合早午餐。',url:'https://www.ohmicho-ichiba.com/'},
+ {id:'higashi',name:'東茶屋街',area:'金澤',reg:'kanazawa',icon:'🍡',kind:'outdoor',stay:65,note:'建議白天去。',url:'https://visitkanazawa.jp/en/attractions/detail_10212.html'},
+ {id:'kenroku',name:'兼六園',area:'金澤',reg:'kanazawa',icon:'🍁',kind:'outdoor',stay:75,note:'冬季注意石階濕滑。',url:'https://www.pref.ishikawa.jp/siro-niwa/kenrokuen/'},
+ {id:'castle',name:'金澤城公園',area:'金澤',reg:'kanazawa',icon:'🏯',kind:'outdoor',stay:55,note:'可與兼六園相連。',url:'https://www.pref.ishikawa.jp/siro-niwa/kanazawajou/'},
+ {id:'chirihama',name:'千里濱海灘車道',area:'羽咋',reg:'noto',icon:'🚗',kind:'outdoor',stay:35,note:'遇天候不佳可能封閉。',url:'https://www.hot-ishikawa.jp/spot/detail_6223.html'},
+ {id:'footbath',name:'和倉寶可夢足湯',area:'和倉溫泉',reg:'noto',icon:'♨️',kind:'mixed',stay:45,note:'帶毛巾。',url:'https://www.city.nanao.lg.jp/koryu-s/pokemon-ashiyu.html'},
+ {id:'aquarium',name:'能登島水族館',area:'能登島',reg:'noto',icon:'🐬',kind:'indoor',stay:160,note:'親子景點。',url:'https://www.notoaqua.jp/guide/'},
+ {id:'wajima',name:'出張輪島朝市',area:'輪島',reg:'wajima',icon:'🦀',kind:'mixed',stay:75,note:'先確認營業狀態。',url:'https://asaichi.info/2026/'},
+ {id:'senmaida',name:'白米千枚田',area:'輪島近郊',reg:'wajima',icon:'🌾',kind:'outdoor',stay:45,note:'晴天景色較佳。',url:'https://senmaida.wajima-kankou.jp/'},
+ {id:'lacquer',name:'輪島漆器工藝',area:'輪島',reg:'wajima',icon:'🎨',kind:'indoor',stay:75,note:'室內備案。',url:'https://www.city.wajima.ishikawa.jp/'},
+ {id:'dinosaur',name:'福井恐龍博物館',area:'福井・勝山',reg:'fukui',icon:'🦖',kind:'indoor',stay:230,note:'建議事先預約。',url:'https://www.dinosaur.pref.fukui.jp/guide/ticket.html'},
+ {id:'toyamaStation',name:'富山車站',area:'富山市',reg:'toyama',icon:'🚄',kind:'indoor',stay:55,note:'土產採買方便。',url:'https://www.info-toyama.com/'},
+ {id:'toyamaGlass',name:'富山市玻璃美術館',area:'富山市',reg:'toyama',icon:'🖼️',kind:'indoor',stay:90,note:'雨雪天備案。',url:'https://toyama-glass-art-museum.jp/en/'},
+ {id:'kansui',name:'富岩運河環水公園',area:'富山市',reg:'toyama',icon:'🌉',kind:'outdoor',stay:60,note:'晴天散步佳。',url:'https://www.kansui-park.jp/'},
+ {id:'takaoka',name:'高岡市區',area:'高岡',reg:'toyama',icon:'🚋',kind:'mixed',stay:75,note:'可搭配哆啦A夢。',url:'https://www.takaoka.or.jp/'},
+ {id:'doraemon',name:'高岡哆啦A夢散步',area:'高岡',reg:'toyama',icon:'🔔',kind:'mixed',stay:45,note:'親子拍照點。',url:'https://www.takaoka.or.jp/'},
+ {id:'amaharashi',name:'雨晴海岸',area:'高岡',reg:'toyama',icon:'🏔️',kind:'outdoor',stay:65,note:'晴天看立山。',url:'https://www.info-toyama.com/attractions/21024'},
+ {id:'museum21',name:'金澤21世紀美術館',area:'金澤',reg:'kanazawa',icon:'🖼️',kind:'indoor',stay:100,note:'雨天備案。',url:'https://www.kanazawa21.jp/en/'},
+ {id:'nagamachi',name:'長町武家屋敷',area:'金澤',reg:'kanazawa',icon:'🏮',kind:'outdoor',stay:55,note:'古街散步。',url:'https://visitkanazawa.jp/en/attractions/detail_10195.html'},
+ {id:'korinbo',name:'香林坊・片町商圈',area:'金澤',reg:'kanazawa',icon:'🛍️',kind:'indoor',stay:80,note:'購物與晚餐。',url:'https://visitkanazawa.jp/en/'}
+];
+const byId=Object.fromEntries(spots.map(s=>[s.id,s]));
+const regionDefs={
+  fukui:{name:'福井', color:'#8a5de1', label:[18,46], spot:[18,52], summary:'恐龍博物館單點重點日'},
+  wajima:{name:'輪島', color:'#f84f8b', label:[57,9], spot:[59,15], summary:'晴天與早出發優先'},
+  noto:{name:'和倉・能登島', color:'#f0942d', label:[72,27], spot:[72,34], summary:'海岸／足湯／水族館'},
+  toyama:{name:'富山・高岡', color:'#32a760', label:[74,61], spot:[74,68], summary:'JR 或自駕皆可'},
+  kanazawa:{name:'金澤市區', color:'#2f91de', label:[10,68], spot:[12,76], summary:'步行＋公車最彈性'}
+};
+const areaGroups={fukui:['dinosaur'],wajima:['wajima','senmaida','lacquer'],noto:['chirihama','footbath','aquarium'],toyama:['toyamaStation','toyamaGlass','kansui','takaoka','doraemon','amaharashi'],kanazawa:['station','pokemon','omicho','higashi','kenroku','castle','museum21','nagamachi','korinbo']};
+const themeGroups={
+  kanazawa_core:{name:'金澤經典',homeDay:2,ids:['station','pokemon','omicho','higashi','kenroku','castle']},
+  noto_south:{name:'能登南（千里濱・和倉・能登島）',homeDay:3,ids:['chirihama','footbath','aquarium']},
+  wajima_day:{name:'輪島（朝市・千枚田・漆器）',homeDay:4,ids:['wajima','senmaida','lacquer']},
+  fukui_dino:{name:'福井恐龍博物館',homeDay:5,ids:['dinosaur']},
+  toyama_day:{name:'富山・高岡',homeDay:6,ids:['toyamaStation','toyamaGlass','kansui','takaoka','doraemon','amaharashi']},
+  kanazawa_relax:{name:'金澤慢遊（美術館・武家屋敷・香林坊）',homeDay:7,ids:['museum21','nagamachi','korinbo']}
+};
+const todoItems=[
+  ['passport','Emily 護照換發','11/30 到期，出發前需完成。'],
+  ['car','決定租車方案','確認全程或部分天數租車。'],
+  ['dino','預訂恐龍博物館門票','先保留喜歡的時段。'],
+  ['insurance','旅遊保險','出發前完成投保。'],
+  ['sim','網路／eSIM','全家上網方案先準備。'],
+  ['weather','出發前 7–10 天追天氣','再依天氣交換戶外行程。'],
+  ['cash','交通支付','IC 卡、信用卡與部分現金。'],
+  ['winter','冬衣與防雨用品','北陸 12 月偏冷，注意保暖。']
+];
+const defaultState={
+  dayPlan:{1:[],2:['station','pokemon','omicho','higashi','kenroku','castle'],3:['chirihama','footbath','aquarium'],4:['wajima','senmaida','lacquer'],5:['dinosaur'],6:['toyamaStation','toyamaGlass','kansui','takaoka','doraemon','amaharashi'],7:['museum21','nagamachi','korinbo'],8:[]},
+  modes:{1:'transit',2:'transit',3:'drive',4:'drive',5:'drive',6:'drive',7:'transit',8:'transit'},
+  startTimes:{1:'18:45',2:'09:00',3:'08:30',4:'08:00',5:'08:30',6:'08:45',7:'09:30',8:'10:00'}
+};
+const STORE='kanazawa-trip-map-v3';
+let state=loadState();
+let focused='3';
+let selected='pokemon';
+let dragging=null;
+
+function deepClone(o){return JSON.parse(JSON.stringify(o));}
+function loadState(){try{const raw=localStorage.getItem(STORE);if(raw)return Object.assign(deepClone(defaultState),JSON.parse(raw));}catch(e){} return deepClone(defaultState);}
+function persist(){try{localStorage.setItem(STORE,JSON.stringify(state))}catch(e){}renderAll();}
+function resetAll(){state=deepClone(defaultState); persist();}
+function dateOf(id){for(let d=1;d<=8;d++){if(state.dayPlan[d].includes(id))return d;}return 0;}
+function orderOf(id){const d=dateOf(id); return d?state.dayPlan[d].indexOf(id)+1:0;}
+function removeSpot(id){for(let d=1;d<=8;d++) state.dayPlan[d]=state.dayPlan[d].filter(x=>x!==id);}
+function assignSpot(id,day,index){removeSpot(id); if(day>=1&&day<=8){const arr=state.dayPlan[day]; if(index==null||index<0||index>arr.length) index=arr.length; arr.splice(index,0,id);} persist();}
+function moveBefore(src,target){if(src===target)return; const d=dateOf(target); if(!d)return; removeSpot(src); const arr=state.dayPlan[d]; const idx=arr.indexOf(target); arr.splice(idx,0,src); persist();}
+function moveShift(id,delta){const d=dateOf(id); if(!d)return; const arr=state.dayPlan[d]; const i=arr.indexOf(id); const ni=i+delta; if(ni<0||ni>=arr.length)return; [arr[i],arr[ni]]=[arr[ni],arr[i]]; persist();}
+function clean(s){return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));}
+function kindLabel(k){return k==='indoor'?'室內':k==='outdoor'?'戶外':'混合';}
+function travel(a,b,mode){
+  const ar=(a.reg||'kanazawa'), br=(b.reg||'kanazawa');
+  const fixed={
+    'airport|hotel':{drive:[60,75],transit:[75,95],via:'機場巴士 / 自駕'},'hotel|airport':{drive:[60,75],transit:[75,95],via:'機場巴士 / 自駕'},
+    'hotel|dinosaur':{drive:[75,90],transit:[105,135],via:'高速道 / JR+巴士'},'dinosaur|hotel':{drive:[75,90],transit:[105,135],via:'高速道 / JR+巴士'},
+    'hotel|chirihama':{drive:[45,60],transit:[55,80],via:'能登里山海道 / JR'},'chirihama|hotel':{drive:[45,60],transit:[55,80],via:'能登里山海道 / JR'},
+    'chirihama|footbath':{drive:[65,80],transit:[95,130],via:'能登里山海道 / JR'},'footbath|chirihama':{drive:[65,80],transit:[95,130],via:'能登里山海道 / JR'},
+    'footbath|aquarium':{drive:[15,25],transit:[35,55],via:'和倉 / 能登島'},'aquarium|footbath':{drive:[15,25],transit:[35,55],via:'和倉 / 能登島'},
+    'hotel|wajima':{drive:[115,145],transit:[165,210],via:'能登道路 / 巴士'},'wajima|hotel':{drive:[115,145],transit:[165,210],via:'能登道路 / 巴士'},
+    'wajima|senmaida':{drive:[20,30],transit:[25,40],via:'輪島周邊'},'senmaida|wajima':{drive:[20,30],transit:[25,40],via:'輪島周邊'},
+    'hotel|toyamaStation':{drive:[60,80],transit:[35,55],via:'北陸道 / 新幹線'},'toyamaStation|hotel':{drive:[60,80],transit:[35,55],via:'北陸道 / 新幹線'},
+    'toyamaStation|toyamaGlass':{drive:[10,15],transit:[10,15],via:'富山市區'},'toyamaGlass|toyamaStation':{drive:[10,15],transit:[10,15],via:'富山市區'},
+    'toyamaStation|kansui':{drive:[8,12],transit:[12,18],via:'富山市區'},'kansui|toyamaStation':{drive:[8,12],transit:[12,18],via:'富山市區'},
+    'takaoka|doraemon':{drive:[5,10],transit:[8,12],via:'高岡市區'},'doraemon|takaoka':{drive:[5,10],transit:[8,12],via:'高岡市區'},
+    'takaoka|amaharashi':{drive:[20,30],transit:[25,45],via:'高岡近郊'},'amaharashi|takaoka':{drive:[20,30],transit:[25,45],via:'高岡近郊'}
+  };
+  const key=`${a.id}|${b.id}`; if(fixed[key]) return {range:fixed[key][mode],via:fixed[key].via};
+  if(a.id==='hotel'&&br==='kanazawa'||b.id==='hotel'&&ar==='kanazawa') return {range:mode==='drive'?[8,16]:[12,25],via:'步行 / 公車'};
+  if(ar===br){ if(ar==='kanazawa') return {range:mode==='drive'?[6,14]:[10,22],via:'步行 / 公車'}; if(ar==='toyama') return {range:mode==='drive'?[10,30]:[15,40],via:'富山區內'}; return {range:mode==='drive'?[20,55]:[35,85],via:'同區移動'}; }
+  const pair=[ar,br].sort().join('-');
+  const table={
+    'kanazawa-noto':{drive:[60,110],transit:[90,150],via:'JR / 能登道路'},
+    'kanazawa-toyama':{drive:[55,85],transit:[35,60],via:'新幹線 / 高速道'},
+    'fukui-kanazawa':{drive:[75,95],transit:[90,125],via:'JR / 高速道'},
+    'noto-toyama':{drive:[90,150],transit:[130,210],via:'跨區移動'},
+    'fukui-toyama':{drive:[110,145],transit:[110,160],via:'高速道 / 鐵路'},
+    'fukui-noto':{drive:[150,210],transit:[210,300],via:'不建議同日拉車'}
+  };
+  if(table[pair]) return {range:table[pair][mode],via:table[pair].via};
+  return {range:mode==='drive'?[20,40]:[35,65],via:'交通待查'};
+}
+function selectedSpot(){return byId[selected] || spots[0];}
+function dayLabel(d){return d?`D${d} ${LONG_DATES[d]}`:'候補';}
+function detectThemeHomeDay(theme){const counts={};for(const id of theme.ids){const d=dateOf(id);if(d)counts[d]=(counts[d]||0)+1}let best=theme.homeDay||0,max=-1;for(const [k,v] of Object.entries(counts)){if(v>max){max=v;best=Number(k)}}return best||theme.homeDay||2;}
+function moveTheme(themeKey,targetDay){const theme=themeGroups[themeKey];if(!theme)return setStatus('找不到主題');targetDay=Number(targetDay);if(!(targetDay>=1&&targetDay<=8))return setStatus('請選擇目標日期');const moved=theme.ids.slice();for(const id of moved)removeSpot(id);state.dayPlan[targetDay]=state.dayPlan[targetDay].concat(moved);selected=moved[0]||selected;focused=String(targetDay);persist();setStatus(`已將「${theme.name}」整組移到 D${targetDay}。`)}
+function swapTheme(themeKey,targetDay){const theme=themeGroups[themeKey];if(!theme)return setStatus('找不到主題');targetDay=Number(targetDay);if(!(targetDay>=1&&targetDay<=8))return setStatus('請選擇目標日期');const sourceDay=detectThemeHomeDay(theme);if(sourceDay===targetDay)return setStatus('主題已經在這一天');const themeIds=theme.ids.slice();const targetIds=state.dayPlan[targetDay].filter(id=>!themeIds.includes(id));for(const id of themeIds)removeSpot(id);state.dayPlan[sourceDay]=state.dayPlan[sourceDay].filter(id=>!targetIds.includes(id)&&!themeIds.includes(id));state.dayPlan[targetDay]=state.dayPlan[targetDay].filter(id=>!targetIds.includes(id)&&!themeIds.includes(id));state.dayPlan[targetDay]=themeIds.slice();state.dayPlan[sourceDay]=targetIds.slice();[state.modes[sourceDay],state.modes[targetDay]]=[state.modes[targetDay],state.modes[sourceDay]];[state.startTimes[sourceDay],state.startTimes[targetDay]]=[state.startTimes[targetDay],state.startTimes[sourceDay]];selected=themeIds[0]||selected;focused=String(targetDay);persist();setStatus(`已將「${theme.name}」與 D${targetDay} 對調。原本 D${targetDay} 的景點已移到 D${sourceDay}。`)}
+function setupThemeControls(){const keySel=$('themeKey'),daySel=$('themeDay');if(!keySel||!daySel)return;const oldTheme=keySel.value||activeTheme,oldDay=daySel.value||'3';keySel.innerHTML=Object.entries(themeGroups).map(([k,v])=>`<option value="${k}">${escapeHtml(v.name)}</option>`).join('');daySel.innerHTML=Array.from({length:8},(_,i)=>`<option value="${i+1}">D${i+1} ${DATES[i+1]}</option>`).join('');keySel.value=themeGroups[oldTheme]?oldTheme:'kanazawa_core';daySel.value=oldDay;$('moveThemeBtn').onclick=()=>moveTheme(keySel.value,daySel.value);$('swapThemeBtn').onclick=()=>swapTheme(keySel.value,daySel.value);}
+
+function renderFocusOptions(){
+  const select=document.getElementById('focusSelect');
+  select.innerHTML=`<option value="all">全部景點</option><option value="0">候補</option>` + Array.from({length:8},(_,i)=>`<option value="${i+1}">D${i+1} ${DATES[i+1]}</option>`).join('');
+  select.value=focused;
+}
+function renderDayTabs(){
+  const countPending=spots.filter(s=>!dateOf(s.id)).length;
+  let html=`<button class="day-tab ${focused==='all'?'active':''}" data-focus="all"><strong>全部</strong><span>All</span><small>${spots.length} 景點</small></button>`;
+  for(let d=1; d<=8; d++) html += `<button class="day-tab ${focused===String(d)?'active':''}" data-focus="${d}"><strong>D${d}</strong><span>${DATES[d]}</span><small>${state.dayPlan[d].length} 景點</small></button>`;
+  html += `<button class="day-tab ${focused==='0'?'active':''}" data-focus="0"><strong>候補</strong><span>未安排</span><small>${countPending} 景點</small></button>`;
+  document.getElementById('dayTabs').innerHTML=html;
+}
+function visibleSpots(){ if(focused==='all') return spots.slice(); if(focused==='0') return spots.filter(s=>!dateOf(s.id)); return spots.filter(s=>dateOf(s.id)===Number(focused)); }
+function regionShouldShow(regionId, vis){ return vis.some(s=>s.reg===regionId); }
+function renderMap(){
+  const vis=visibleSpots();
+  const stage=document.getElementById('mapStage');
+  const title = focused==='all' ? ['全部景點','顯示全部景點與區域摘要'] : focused==='0' ? ['候補景點','只顯示尚未安排的景點'] : [dayLabel(Number(focused)), '只顯示這一天的景點；拖曳可改順序與日期'];
+  document.getElementById('mapModeTitle').textContent=title[0];
+  document.getElementById('mapModeDesc').textContent=title[1];
+
+  const regionLabels = Object.entries(regionDefs).map(([id,r])=>{
+    const shown=regionShouldShow(id,vis);
+    const [lx,ly]=r.label;
+    const count=vis.filter(s=>s.reg===id).length;
+    return `<div class="region-label ${shown?'':'hidden'}" style="left:${lx}%;top:${ly}%;--c:${r.color}"><h3>${r.name}</h3><div class="sub">${r.summary}</div><div class="meta">${shown?`目前顯示 ${count} 個景點`:'目前這一天沒有景點'}</div></div>`;
+  }).join('');
+
+  const byRegion={kanazawa:[],noto:[],wajima:[],fukui:[],toyama:[]};
+  vis.forEach(s=>byRegion[s.reg].push(s));
+  const spotCards=[];
+  Object.entries(byRegion).forEach(([reg,list])=>{
+    const def=regionDefs[reg]; if(!def||!list.length) return;
+    const [sx,sy]=def.spot;
+    const colGap=22, rowGap=24, cardW=220, cardH=118;
+    list.forEach((s,i)=>{
+      const col=i%2, row=Math.floor(i/2);
+      const left=`calc(${sx}% + ${col*(cardW+colGap)}px)`;
+      const top=`calc(${sy}% + ${row*(cardH+rowGap)}px)`;
+      const d=dateOf(s.id), ord=orderOf(s.id);
+      spotCards.push(`<div class="spot-card ${selected===s.id?'selected':''}" draggable="true" data-spot="${s.id}" style="left:${left};top:${top}">
+        <div class="spot-head"><div class="spot-emoji">${s.icon}</div><div class="spot-title">${clean(s.name)}<small>${clean(s.area)}｜建議 ${s.stay} 分</small></div></div>
+        <div class="spot-tags"><span class="tag day" style="background:${d?DAYCOLORS[d]:'#7c909b'}">${d?`D${d}-${ord}`:'候補'}</span><span class="tag kind">${kindLabel(s.kind)}</span><span class="tag grip">拖曳排序</span></div>
+      </div>`);
+    });
+  });
+
+  const summary=buildFocusSummary();
+  const svg=`<svg class="map-svg" viewBox="0 0 1200 1180" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <defs>
+      <linearGradient id="sea" x1="0" x2="1"><stop offset="0" stop-color="#c4ebff"/><stop offset="1" stop-color="#e1f5ff"/></linearGradient>
+      <linearGradient id="land" x1="0" x2="1"><stop offset="0" stop-color="#d3ecb1"/><stop offset="1" stop-color="#c3e19e"/></linearGradient>
+      <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#34546c" flood-opacity=".12"/></filter>
+      <marker id="arrowPink" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#f84f8b"/></marker>
+      <marker id="arrowOrange" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#f0942d"/></marker>
+      <marker id="arrowGreen" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#32a760"/></marker>
+      <marker id="arrowPurple" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#8a5de1"/></marker>
+      <marker id="arrowBlue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#2f91de"/></marker>
+    </defs>
+    <rect width="1200" height="1180" fill="url(#sea)"/>
+    <g fill="none" stroke="#80c9ef" stroke-width="7" opacity=".55">
+      <path d="M34 190q18 13 36 0t36 0"/><path d="M86 252q18 13 36 0t36 0"/><path d="M40 316q18 13 36 0t36 0"/><path d="M90 374q18 13 36 0t36 0"/><path d="M44 438q18 13 36 0t36 0"/>
+    </g>
+    <g filter="url(#shadow)">
+      <path d="M560 114l107 29 64 82 65 37 18 78 63 64-16 93-52 52-76 43-54 72-89 63-91 11-49-81-61-37-10-92 32-58-18-97 38-54 71-23 59-77z" fill="url(#land)" stroke="#fff" stroke-width="10"/>
+      <path d="M636 154l-43 52-71 23-38 54 18 97-32 58 10 92 61 37 49 81-81 36-79-16-54-88-61-39-9-88-44-69 33-54 85-26 73 4 75-42 53-76 55 10z" fill="#dcedbb" stroke="#fff" stroke-width="10"/>
+      <path d="M859 87l88 31 62 60-25 76-101 3-51-52z" fill="#cbe5a9" stroke="#fff" stroke-width="10"/>
+      <path d="M961 165l43 14 35 31-14 48-61 2-31-32z" fill="#f6cecf" stroke="#fff" stroke-width="10" opacity=".84"/>
+    </g>
+    <g fill="#5a7a61" font-weight="900">
+      <text x="835" y="120" font-size="36">北海道</text>
+      <text x="776" y="364" font-size="28">能登半島</text>
+      <text x="815" y="694" font-size="24">富山</text>
+      <text x="556" y="530" font-size="28">金澤</text>
+      <text x="372" y="772" font-size="24">福井</text>
+      <text x="930" y="520" font-size="34">本州</text>
+      <text x="35" y="107" font-size="30" fill="#31739d">日本海側</text>
+    </g>
+    <g fill="none" stroke-width="12" opacity=".9">
+      <path d="M538 617C503 560 460 548 358 547" stroke="#8a5de1" marker-end="url(#arrowPurple)"/>
+      <path d="M625 565C677 455 730 357 772 312" stroke="#f84f8b" marker-end="url(#arrowPink)"/>
+      <path d="M644 594C735 554 799 523 864 470" stroke="#f0942d" marker-end="url(#arrowOrange)"/>
+      <path d="M649 653C738 700 801 742 862 819" stroke="#32a760" marker-end="url(#arrowGreen)"/>
+      <path d="M546 680C466 726 414 778 348 828" stroke="#2f91de" marker-end="url(#arrowBlue)"/>
+    </g>
+  </svg>`;
+  const titleBox=`<div class="map-title"><h2>地圖主畫面</h2><div class="mini">主要用途：<b>在地圖上查看行程</b>、<b>編輯日期與順序</b>。<br>切到某一天時，只顯示該日景點，避免畫面混亂。</div></div>`;
+  const hub=`<div class="hub"><div class="t1">金澤</div><div class="t2">INOVA Kanazawa</div><div class="t3">12/03–12/10 連住 7 晚</div></div>`;
+  const inset=`<div class="mini-inset"><b>日本（簡化）</b><svg viewBox="0 0 140 120" xmlns="http://www.w3.org/2000/svg"><path d="M30 96l21-20 10-18 17-10 15-18 17-4 8-15 8 3-2 15-13 11 3 11-9 9-8-3-9 10-15 8-8 12-11-1-7 10-17-10z" fill="#efc7c9" stroke="#fff" stroke-width="2"/><rect x="48" y="51" width="26" height="18" fill="none" stroke="#204a91" stroke-width="3"/><text x="94" y="24" font-size="18" fill="#33516c" font-weight="800">N</text><path d="M103 45l9-20 9 20" fill="#fff" stroke="#33516c" stroke-width="3"/><line x1="112" y1="26" x2="112" y2="65" stroke="#33516c" stroke-width="3"/></svg></div>`;
+  const strip=`<div class="focus-strip"><h4>${title[0]} 摘要</h4><div class="line">${summary}</div></div>`;
+  stage.innerHTML = svg + titleBox + hub + regionLabels + spotCards.join('') + inset + strip;
+  attachMapEvents();
+}
+function buildFocusSummary(){
+  if(focused==='all') return '目前顯示全部景點。你可以點選任一景點卡編輯，或拖曳到上方日期籃更改日期。';
+  if(focused==='0') return `目前有 ${spots.filter(s=>!dateOf(s.id)).length} 個候補景點尚未排入正式行程。可拖到 D1～D8。`;
+  const d=Number(focused), seq=mapSequence(d), mode=state.modes[d];
+  if(!state.dayPlan[d].length) return '這一天目前沒有景點。可把候補或其他天的景點拖到上方 D'+d+'。';
+  let parts=[]; for(let i=0;i<seq.length-1;i++){const t=travel(seq[i],seq[i+1],mode); parts.push(`${seq[i].name} → ${seq[i+1].name} 約 ${t.range[0]}–${t.range[1]} 分`);} return parts.join(' ｜ ');
+}
+function attachMapEvents(){
+  document.querySelectorAll('.spot-card').forEach(card=>{
+    const id=card.dataset.spot;
+    card.addEventListener('click',()=>{selected=id; renderAll();});
+    card.addEventListener('dragstart',()=>{dragging=id; card.classList.add('dragging');});
+    card.addEventListener('dragend',()=>{dragging=null; clearDragMarks();});
+    card.addEventListener('dragover',e=>{e.preventDefault(); if(dragging&&dragging!==id) card.classList.add('drop-before');});
+    card.addEventListener('dragleave',()=>card.classList.remove('drop-before'));
+    card.addEventListener('drop',e=>{e.preventDefault(); if(dragging&&dragging!==id){moveBefore(dragging,id); selected=dragging;} clearDragMarks();});
+  });
+}
+function clearDragMarks(){document.querySelectorAll('.drop-before,.drop,.dragging').forEach(el=>el.classList.remove('drop-before','drop','dragging'));}
+function renderSide(){
+  const s=selectedSpot(); const d=dateOf(s.id), o=orderOf(s.id);
+  const dayOptions=['<option value="0">候補（不排入）</option>'].concat(Array.from({length:8},(_,i)=>{const n=i+1; return `<option value="${n}" ${n===d?'selected':''}>D${n} ${LONG_DATES[n]}</option>`;})).join('');
+  const orderOptions=d?Array.from({length:state.dayPlan[d].length},(_,i)=>`<option value="${i+1}" ${i+1===o?'selected':''}>第 ${i+1} 站</option>`).join(''):'<option>未排入</option>';
+  document.getElementById('sidePanel').innerHTML=`<h2>景點編輯器</h2>
+    <div class="hint">主要操作在左邊地圖：<b>點景點卡</b>可選取；<b>拖曳景點卡到另一張卡上</b>可插入其前面；<b>拖到上方日期籃</b>可改日期。右側提供精細調整。</div>
+    <div class="box"><div style="font-size:18px;font-weight:1000;color:#123a5a">${s.icon} ${clean(s.name)}</div><div class="status" style="margin-top:6px">地區：${clean(s.area)} ｜ 類型：${kindLabel(s.kind)} ｜ 建議停留 ${s.stay} 分</div><div class="status" style="margin-top:6px">${clean(s.note)}</div>
+      <div class="field"><label>安排日期</label><select id="editDay">${dayOptions}</select></div>
+      <div class="field"><label>當天順序</label><select id="editOrder">${orderOptions}</select></div>
+      <div class="btnrow"><button data-shift="-1">↑ 同日往前</button><button data-shift="1">↓ 同日往後</button><button class="primary" id="siteBtn">官方網站</button></div>
+    </div>
+    <div class="box"><div style="font-size:16px;font-weight:1000;color:#123a5a">該日交通設定</div>
+      <div class="field"><label>${d?`D${d} ${LONG_DATES[d]}`:'請先排進某一天'}</label><select id="modeSel" ${d?'':'disabled'}><option value="drive" ${d&&state.modes[d]==='drive'?'selected':''}>自駕</option><option value="transit" ${d&&state.modes[d]==='transit'?'selected':''}>鐵路 / 公車</option></select></div>
+      <div class="field"><label>出發時間</label><input id="startSel" type="time" value="${d?state.startTimes[d]:'09:00'}" ${d?'':'disabled'}></div>
+      <div class="status" style="margin-top:8px">目前狀態：${d?`已安排在 D${d} 的第 ${o} 站。`:'目前是候補景點。'}</div>
+      <div class="status" style="margin-top:8px"><a href="${s.url}" target="_blank" rel="noopener">開啟景點資料 ↗</a></div>
+    </div>`;
+  document.getElementById('editDay').onchange=e=>{const nd=Number(e.target.value); if(nd===0) assignSpot(s.id,0); else assignSpot(s.id,nd,state.dayPlan[nd].length);};
+  document.getElementById('editOrder').onchange=e=>{const nd=dateOf(s.id); if(!nd)return; removeSpot(s.id); state.dayPlan[nd].splice(Number(e.target.value)-1,0,s.id); persist();};
+  document.querySelectorAll('[data-shift]').forEach(btn=>btn.onclick=()=>moveShift(s.id, Number(btn.dataset.shift)));
+  document.getElementById('siteBtn').onclick=()=>window.open(s.url,'_blank','noopener');
+  const m=document.getElementById('modeSel'); if(m) m.onchange=e=>{const nd=dateOf(s.id); if(nd){state.modes[nd]=e.target.value; persist();}};
+  const st=document.getElementById('startSel'); if(st) st.onchange=e=>{const nd=dateOf(s.id); if(nd){state.startTimes[nd]=e.target.value; persist();}};
+}
+function mapSequence(d){return d===1?[AIRPORT,...state.dayPlan[d].map(id=>byId[id]),HOTEL]:d===8?[HOTEL,...state.dayPlan[d].map(id=>byId[id]),AIRPORT]:[HOTEL,...state.dayPlan[d].map(id=>byId[id]),HOTEL];}
+function startMinutes(d){const [h,m]=state.startTimes[d].split(':').map(Number); return h*60+m;}
+function clock(min){min=Math.round(min); const h=Math.floor(min/60)%24, m=min%60; return `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}`;}
+function renderItinerary(){
+  let html='';
+  for(let d=1; d<=8; d++){
+    const mode=state.modes[d], seq=mapSequence(d); let current=startMinutes(d); let routes='';
+    if(d===1) routes += `<div class="route"><div class="leg">✈️ CI370：TPE → TOY</div><div class="meta">13:45 → 17:35；預估 18:45 離開機場前往 INOVA。</div></div>`;
+    if(d===8) routes += `<div class="route"><div class="leg">✈️ CI371：TOY → TPE</div><div class="meta">18:35 → 21:25；建議 15:30 前抵達富山機場。</div></div>`;
+    for(let i=0;i<seq.length-1;i++){
+      const a=seq[i], b=seq[i+1], t=travel(a,b,mode); const arr=`${clock(current)} 出發，約 ${clock(current+t.range[0])}–${clock(current+t.range[1])} 抵達`; current += Math.round((t.range[0]+t.range[1])/2);
+      routes += `<div class="route"><div class="leg">${a.icon||''} ${clean(a.name)} → ${b.icon||''} ${clean(b.name)}</div><div class="meta">${mode==='drive'?'🚗 自駕':'🚉 鐵路 / 公車'} 約 ${t.range[0]}–${t.range[1]} 分 ｜ ${t.via} ｜ ${arr}${b.stay?` ｜ 停留約 ${b.stay} 分`:''}</div></div>`;
+      if(b.stay) current += b.stay;
+    }
+    html += `<div class="day-card"><div class="day-head"><h3>D${d} ${LONG_DATES[d]}</h3><div style="display:flex;gap:8px;flex-wrap:wrap"><span class="pill">${mode==='drive'?'自駕':'鐵路 / 公車'}</span><span class="pill">出發 ${state.startTimes[d]}</span><span class="pill">${state.dayPlan[d].length} 景點</span></div></div>${routes}</div>`;
+  }
+  document.getElementById('itinerary').innerHTML=html;
+}
+function renderTodos(){
+  const key='kanazawa-trip-map-v3-todos'; let saved={}; try{saved=JSON.parse(localStorage.getItem(key)||'{}');}catch(e){}
+  document.getElementById('todoGrid').innerHTML = todoItems.map(([id,title,desc])=>`<label class="todo"><input type="checkbox" data-todo="${id}" ${saved[id]?'checked':''}><div><b>${clean(title)}</b><span>${clean(desc)}</span></div></label>`).join('');
+  document.querySelectorAll('[data-todo]').forEach(el=>el.onchange=()=>{saved[el.dataset.todo]=el.checked; localStorage.setItem(key,JSON.stringify(saved));});
+}
+function attachTabs(){
+  document.querySelectorAll('.day-tab').forEach(tab=>{
+    tab.addEventListener('click',()=>{focused=tab.dataset.focus; renderAll();});
+    tab.addEventListener('dragover',e=>{e.preventDefault(); if(dragging) tab.classList.add('drop');});
+    tab.addEventListener('dragleave',()=>tab.classList.remove('drop'));
+    tab.addEventListener('drop',e=>{e.preventDefault(); tab.classList.remove('drop'); if(!dragging)return; const f=tab.dataset.focus; if(f==='all') return; if(f==='0') assignSpot(dragging,0); else assignSpot(dragging, Number(f), state.dayPlan[Number(f)].length); selected=dragging;});
+  });
+}
+function renderAll(){ renderFocusOptions(); renderDayTabs(); renderMap(); renderSide(); renderItinerary(); renderTodos(); attachTabs(); document.getElementById('focusSelect').value=focused; }
+function exportTxt(){ let lines=['金澤・能登 8 天 7 夜行程','CI370 / CI371｜INOVA Kanazawa','']; for(let d=1;d<=8;d++){lines.push(`D${d} ${LONG_DATES[d]}｜${state.modes[d]==='drive'?'自駕':'鐵路/公車'}｜出發 ${state.startTimes[d]}`); const seq=mapSequence(d); for(let i=0;i<seq.length-1;i++){const t=travel(seq[i],seq[i+1],state.modes[d]); lines.push(`  ${seq[i].name} -> ${seq[i+1].name}｜約 ${t.range[0]}-${t.range[1]} 分｜${t.via}`);} lines.push(''); } const blob=new Blob([lines.join('\r\n')],{type:'text/plain;charset=utf-8'}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='kanazawa_trip_plan_v3.txt'; a.click(); URL.revokeObjectURL(a.href); }
+
+// V4 main map: geographic positions and coast sketch in lon/lat (instead of freehand arbitrary country silhouette)
+const GEO_POINTS={
+ station:[136.6481,36.5783],pokemon:[136.6488,36.5784],omicho:[136.6558,36.5714],higashi:[136.6678,36.5744],kenroku:[136.6626,36.5626],castle:[136.6598,36.5661],museum21:[136.6566,36.5606],nagamachi:[136.6488,36.5653],korinbo:[136.6537,36.5639],
+ chirihama:[136.7717,36.8862],footbath:[136.9247,37.0879],aquarium:[136.9834,37.1511],wajima:[136.9181,37.3879],senmaida:[136.9960,37.4248],lacquer:[136.9005,37.3905],dinosaur:[136.5057,36.0796],toyamaStation:[137.2130,36.7012],toyamaGlass:[137.2162,36.6887],kansui:[137.2124,36.7094],takaoka:[137.0168,36.7429],doraemon:[137.0157,36.7420],amaharashi:[137.0370,36.8143]
+};
+const COAST=[[135.55, 35.92], [135.77, 35.77], [135.93, 35.81], [136.08, 35.96], [136.12, 36.11], [136.17, 36.22], [136.29, 36.36], [136.45, 36.51], [136.57, 36.65], [136.68, 36.82], [136.74, 36.94], [136.77, 37.03], [136.72, 37.13], [136.7, 37.25], [136.76, 37.37], [136.88, 37.43], [136.97, 37.48], [137.13, 37.53], [137.29, 37.52], [137.34, 37.46], [137.3, 37.38], [137.23, 37.3], [137.14, 37.25], [137.08, 37.17], [137.02, 37.13], [136.96, 37.08], [136.99, 37.01], [137.04, 36.93], [137.13, 36.87], [137.24, 36.8], [137.32, 36.77], [137.43, 36.8], [137.51, 36.82], [137.7, 36.86], [137.92, 36.98], [138.2, 37.1]];
+const geoBounds={left:135.70,right:138.05,top:37.70,bottom:35.72};
+function xy(point){let [lng,lat]=point;return [80+(lng-geoBounds.left)/(geoBounds.right-geoBounds.left)*970,60+(geoBounds.top-lat)/(geoBounds.top-geoBounds.bottom)*700]}
+const $=id=>document.getElementById(id);
+const escapeHtml=s=>clean(s);
+const WX_NAMES={unknown:'未標註',sun:'☀️ 晴／多雲',rain:'🌧️ 雨',snow:'❄️ 雪'};
+const WX_STORE='kanazawa-trip-v4-weather';
+let weather=(()=>{try{return JSON.parse(localStorage.getItem(WX_STORE)||'{}')}catch(e){return {}}})();
+let forecasts={}; let wxUpdate=''; let draggedMapId=null;
+function persistWeather(){try{localStorage.setItem(WX_STORE,JSON.stringify(weather))}catch(e){}renderAll()}
+function setStatus(t){$('status').textContent=t}
+function mapDayList(){return focused==='all'?spots:focused==='0'?spots.filter(s=>!dateOf(s.id)):state.dayPlan[Number(focused)].map(id=>byId[id]);}
+function regionName(reg){return ({kanazawa:'金澤',noto:'能登南部',wajima:'輪島',toyama:'富山',fukui:'福井'})[reg]||reg}
+function renderMapGeo(){const coast=COAST.map(xy),edge=coast.map(p=>p.map(n=>n.toFixed(1)).join(',')).join(' '),poly=edge+' 1150,830 -30,830';
+ const landscape=`<defs><linearGradient id="seaGrad" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#c7ebfc"/><stop offset="1" stop-color="#e8f8fc"/></linearGradient><linearGradient id="landGrad" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e3f2c9"/><stop offset="1" stop-color="#b9dea3"/></linearGradient><pattern id="wave" width="75" height="58" patternUnits="userSpaceOnUse"><path d="M7 24q14-9 28 0t28 0" fill="none" stroke="#99cfe8" stroke-width="3" opacity=".40"/></pattern></defs>
+ <rect width="1120" height="840" fill="url(#seaGrad)"/><rect width="1120" height="840" fill="url(#wave)"/>
+ <polygon points="${poly}" fill="url(#landGrad)" stroke="#fff" stroke-width="5"/><path d="M725 372L744 382L762 379L770 394L758 413L739 414L718 395Z" fill="#cbe8b5" stroke="#fff" stroke-width="2"/>
+ <g fill="none" stroke="#99c9ae" stroke-width="3" opacity=".45"><path d="M395 700q100-60 170-160t180-30"/><path d="M510 660q130-100 260-100t220-70"/></g>
+ <g font-size="20" fill="#6095a8" font-weight="700"><text x="75" y="172">日本海</text><text x="680" y="335" font-size="16" fill="#59866e">能登半島</text><text x="748" y="470" font-size="15" fill="#59866e">富山灣</text><text x="935" y="705" font-size="15" fill="#698b70">飛驒山地</text></g>`;
+ $('geoSvg').innerHTML=landscape;
+}
+function pinPos(s,view){let p=xy(GEO_POINTS[s.id]||[136.65,36.57]);const d=dateOf(s.id),ids=view.filter(x=>x.reg===s.reg),index=ids.findIndex(x=>x.id===s.id);const n=ids.length;
+ // Deliberate label offsets for tightly clustered cities: anchor remains geographic but label fans out.
+ if(s.reg==='kanazawa') {let slots=[[-65,-105],[68,-105],[-115,-35],[110,-30],[-94,48],[94,49],[-82,110],[76,111],[0,-156]];let a=slots[index%slots.length];p[0]+=a[0];p[1]+=a[1]}
+ if(s.reg==='toyama'){const v=ids.filter(x=>['toyamaStation','toyamaGlass','kansui'].includes(x.id));if(v.some(x=>x.id===s.id)){let i=v.findIndex(x=>x.id===s.id);p[0]+=[-105,10,116][i]||0;p[1]+=[-43,-95,-34][i]||0}if(['takaoka','doraemon'].includes(s.id))p[1]+=s.id==='takaoka'?-34:35;}
+ if(s.reg==='noto'){p[0]+={chirihama:-25,footbath:-70,aquarium:88}[s.id]||0;p[1]+={chirihama:18,footbath:38,aquarium:-20}[s.id]||0}
+ if(s.reg==='wajima'){p[0]+={wajima:-70,senmaida:78,lacquer:-5}[s.id]||0;p[1]+={wajima:-12,senmaida:-25,lacquer:62}[s.id]||0}
+ return [Math.max(57,Math.min(1060,p[0])),Math.max(70,Math.min(610,p[1]))]
+}
+function renderMapPins(){const view=mapDayList();let html='';
+ // Show a compact hotel badge at its geographically accurate Kanazawa position.
+ const hotel=xy([136.65,36.575]);html+=`<div class="hub" style="left:${hotel[0]/1120*100}%;top:${hotel[1]/840*100}%">🏨 金澤<small>INOVA｜7 晚</small></div>`;
+ if(focused==='all'){
+ const REGIONS={kanazawa:{name:'金澤市區',icon:'🏯',x:365,y:558,c:'#2f91de'},noto:{name:'和倉・能登島',icon:'♨️',x:665,y:392,c:'#f0942d'},wajima:{name:'輪島・千枚田',icon:'🌾',x:550,y:195,c:'#f84f8b'},fukui:{name:'福井',icon:'🦖',x:245,y:603,c:'#8a5de1'},toyama:{name:'富山・高岡',icon:'🏔️',x:897,y:557,c:'#32a760'}};
+ for(const [reg,r] of Object.entries(REGIONS)){
+  let areaSpots=spots.filter(s=>s.reg===reg),dates=[...new Set(areaSpots.map(s=>dateOf(s.id)))].sort((a,b)=>a-b),dButtons=dates.map(d=>`<button class="region-day" data-focusday="${d}" style="border-color:${r.c}">${d?`D${d} ${DATES[d]}`:'候補'}</button>`).join('');
+  html+=`<div class="region-pop" style="left:${r.x/1120*100}%;top:${r.y/840*100}%;--pop:${r.c}"><strong>${r.icon} ${r.name}</strong><span>${areaSpots.length} 個景點</span><div class="region-days">${dButtons}</div></div>`;
+ }
+ $('mapPins').innerHTML=html;
+ $('mapPins').querySelectorAll('[data-focusday]').forEach(b=>b.onclick=()=>{focused=b.dataset.focusday;renderAll()});
+ $('mapTitle').textContent='全部區域總覽';
+ $('mapSub').textContent='選區域內的 D2～D7 日期，即可在地圖上查看、點選並拖曳該天的景點。';
+ $('legend').innerHTML=Array.from({length:8},(_,i)=>`<span class="key"><span class="dot" style="background:${DAYCOLORS[i+1]}"></span>D${i+1} ${state.dayPlan[i+1].length} 個</span>`).join('');
+ return;
+ }
+ for(const s of view){const [x,y]=pinPos(s,view);const d=dateOf(s.id),color=DAYCOLORS[d]||'#8c9da9',selectedClass=selected===s.id?' active':'';
+ html+=`<button type="button" class="pin${selectedClass}" data-spot="${s.id}" draggable="true" style="left:${x/1120*100}%;top:${y/840*100}%;border-color:${color}" title="${escapeHtml(s.name)}：點選編輯日期與順序"><i>${s.icon}</i><span class="name">${escapeHtml(s.name)}<br><span class="num" style="background:${color}">${d?`D${d} · ${orderOf(s.id)}`:'候補'}</span></span></button>`;
+ }
+ if(!view.length)html+='<div class="map-empty">這天目前沒有景點。請從候補或其他日期加入景點。</div>';
+ $('mapPins').innerHTML=html;
+ $('mapTitle').textContent=focused==='all'?'全部景點':focused==='0'?'候補景點':`D${focused}・${DATES[focused]}`;
+ $('mapSub').textContent=`地圖顯示 ${view.length} 個景點。點選編輯，拖曳至上方日期籃改日期；當日卡片可調順序。`;
+ $('legend').innerHTML=Array.from({length:8},(_,i)=>`<span class="key"><span class="dot" style="background:${DAYCOLORS[i+1]}"></span>D${i+1} ${state.dayPlan[i+1].length} 個</span>`).join('')+`<span class="key"><span class="dot" style="background:#8c9da9"></span>候補 ${spots.filter(x=>!dateOf(x.id)).length}</span>`;
+ // Direct map interactions
+ document.querySelectorAll('#mapPins [data-spot]').forEach(el=>{
+ el.onclick=()=>{selected=el.dataset.spot;renderMapPins();renderSpotEditor()};
+ el.ondragstart=e=>{draggedMapId=el.dataset.spot;e.dataTransfer.setData('text/plain',draggedMapId);e.dataTransfer.effectAllowed='move';el.classList.add('dragging')};
+ el.ondragend=()=>{draggedMapId=null;el.classList.remove('dragging')};
+ el.ondragover=e=>{if(draggedMapId&&draggedMapId!==el.dataset.spot){e.preventDefault();el.classList.add('drop-before')}};
+ el.ondragleave=()=>el.classList.remove('drop-before');
+ el.ondrop=e=>{e.preventDefault();el.classList.remove('drop-before');const from=draggedMapId;if(from&&from!==el.dataset.spot){const to=el.dataset.spot;let d=dateOf(to);if(d){removeSpot(from);let idx=state.dayPlan[d].indexOf(to);state.dayPlan[d].splice(idx,0,from);selected=from;persist()}else{setStatus('候補景點尚未排日期，請拖到日期籃設定。')}}};
+ });
+}
+function renderMapOrder(){let d=focused==='all'?(dateOf(selected)||2):focused==='0'?0:Number(focused);
+ const ids=d?state.dayPlan[d]:spots.filter(s=>!dateOf(s.id)).map(s=>s.id);
+ $('orderTitle').textContent=d?`D${d} ${DATES[d]}｜地圖上的當日順序`:'候補景點';$('orderStats').textContent=`${ids.length} 個景點 · 可拖曳／↑↓排序`;
+ let html='';let seq=d?mapSequence(d):[];for(let i=0;i<ids.length;i++){let s=byId[ids[i]];
+ if(d&&i>0){let g=travel(byId[ids[i-1]],s,state.modes[d]);html+=`<div class="route-pill">${state.modes[d]==='drive'?'🚗':'🚉'} ${g.range.join('–')} 分</div>`}
+ html+=`<div class="order-card ${selected===s.id?'selected':''}" draggable="true" data-order="${s.id}"><div class="top">${i+1}. ${s.icon} ${escapeHtml(s.name)}</div><small>${escapeHtml(s.area)} · 停留 ${s.stay} 分</small><div class="order-actions"><button data-up="${s.id}" ${i===0?'disabled':''}>↑</button><button data-down="${s.id}" ${i===ids.length-1?'disabled':''}>↓</button><button data-edit="${s.id}">編輯</button></div></div>`;
+ }
+ if(d&&ids.length===0)html='<span class="small">尚無景點。切回全部景點後，可把地圖標籤拖到 D'+d+' 日期按鈕。</span>';
+ $('orderList').innerHTML=html;
+ $('orderList').querySelectorAll('[data-order]').forEach(el=>{
+ el.ondragstart=e=>{draggedMapId=el.dataset.order;e.dataTransfer.setData('text/plain',draggedMapId)};
+ el.ondragend=()=>{draggedMapId=null};
+ el.ondragover=e=>{if(draggedMapId&&draggedMapId!==el.dataset.order){e.preventDefault();el.classList.add('drop-before')}};
+ el.ondragleave=()=>el.classList.remove('drop-before');
+ el.ondrop=e=>{e.preventDefault();el.classList.remove('drop-before');if(draggedMapId&&draggedMapId!==el.dataset.order){const td=dateOf(el.dataset.order);if(td){removeSpot(draggedMapId);state.dayPlan[td].splice(state.dayPlan[td].indexOf(el.dataset.order),0,draggedMapId);selected=draggedMapId;persist()}}};
+ });
+ $('orderList').querySelectorAll('[data-up]').forEach(b=>b.onclick=()=>moveShift(b.dataset.up,-1));
+ $('orderList').querySelectorAll('[data-down]').forEach(b=>b.onclick=()=>moveShift(b.dataset.down,1));
+ $('orderList').querySelectorAll('[data-edit]').forEach(b=>b.onclick=()=>{selected=b.dataset.edit;renderMapPins();renderSpotEditor();});
+}
+function renderSpotEditor(){let s=selectedSpot(),d=dateOf(s.id),n=orderOf(s.id);
+ $('spotEditor').innerHTML=`<h3>${s.icon} ${escapeHtml(s.name)}</h3><div class="status">${escapeHtml(s.area)}｜${kindLabel(s.kind)}｜建議停留 ${s.stay} 分<br>${escapeHtml(s.note)}</div>
+ <label class="control">安排日期<select id="editDay"><option value="0">候補</option>${Array.from({length:8},(_,i)=>`<option value="${i+1}" ${d===i+1?'selected':''}>D${i+1} ${DATES[i+1]}</option>`).join('')}</select></label>
+ <label class="control">當天順序<select id="editOrder" ${d?'':'disabled'}>${d?state.dayPlan[d].map((id,i)=>`<option value="${i}" ${n===i+1?'selected':''}>第 ${i+1} 站</option>`).join(''):'<option>尚未排入</option>'}</select></label>
+ <div class="buttons"><button id="editUp" ${n<=1?'disabled':''}>↑ 往前</button><button id="editDown" ${!d||n===state.dayPlan[d].length?'disabled':''}>↓ 往後</button><a class="action" href="${s.url}" target="_blank" rel="noopener">官方資料 ↗</a></div>
+ ${d?`<label class="control">D${d} 交通方式<select id="editMode"><option value="drive" ${state.modes[d]==='drive'?'selected':''}>🚗 自駕</option><option value="transit" ${state.modes[d]==='transit'?'selected':''}>🚉 鐵路／公車</option></select></label><label class="control">出發時間<input type="time" id="editStart" value="${state.startTimes[d]}"></label>`:''}`;
+ $('editDay').onchange=e=>{const nd=Number(e.target.value);assignSpot(s.id,nd,nd?state.dayPlan[nd].length:0)};
+ $('editOrder').onchange=e=>{let nd=dateOf(s.id);if(!nd)return;removeSpot(s.id);state.dayPlan[nd].splice(Number(e.target.value),0,s.id);persist()};
+ $('editUp').onclick=()=>moveShift(s.id,-1);$('editDown').onclick=()=>moveShift(s.id,1);
+ if(d){$('editMode').onchange=e=>{state.modes[d]=e.target.value;persist()};$('editStart').onchange=e=>{state.startTimes[d]=e.target.value;persist()}}
+}
+function renderWeather(){let html='';for(let d=1;d<=8;d++){
+ const w=weather[d]||'unknown',f=forecasts[d];html+=`<div class="wx-day"><b>D${d} ${DATES[d]}</b><select data-weather="${d}">${Object.entries(WX_NAMES).map(([k,v])=>`<option value="${k}" ${w===k?'selected':''}>${v}</option>`).join('')}</select><small>${f?`${f.emoji} ${f.min}～${f.max}°C｜降雨 ${f.rain}%`:'可手動調整'}</small></div>`}
+ $('weatherGrid').innerHTML=html;$('weatherGrid').querySelectorAll('[data-weather]').forEach(el=>el.onchange=e=>{weather[Number(el.dataset.weather)]=e.target.value;persistWeather()});
+}
+function renderAdvice(){let msg=[];
+ for(let d=2;d<=7;d++){let w=weather[d]||'unknown',ids=state.dayPlan[d],outdoors=ids.map(id=>byId[id]).filter(s=>s.kind==='outdoor');
+ if(w==='rain'&&outdoors.length)msg.push(`D${d} 有雨：${outdoors.map(s=>s.name).join('、')}可考慮改到晴天。`);
+ if(w==='snow'&&ids.some(id=>['noto','wajima'].includes(byId[id].reg)))msg.push(`D${d} 有雪且安排能登：先查道路封閉及冬季租車條件。`);
+ }
+ $('wxAdvice').innerHTML=msg.length?msg.map(escapeHtml).join('<br>'):'晴天優先：千里濱、千枚田、雨晴海岸；雨天備案：寶可夢中心、恐龍博物館、玻璃美術館。';
+}
+async function fetchWeather(){const today=new Date(),first=new Date('2026-12-03T00:00:00+09:00');if(first-today>16*86400000){$('wxStatus').textContent='還沒進入 16 天天氣預報範圍；可先手動標註。';return}
+ const coords={kanazawa:[36.578,136.648],noto:[37.08,136.93],wajima:[37.39,136.93],fukui:[36.08,136.51],toyama:[36.70,137.21]};
+ try{let regionForecast={};for(const [reg,[lat,lon]] of Object.entries(coords)){let url=`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=Asia%2FTokyo&forecast_days=16`;
+ let resp=await fetch(url);if(!resp.ok)throw Error('API HTTP '+resp.status);regionForecast[reg]=(await resp.json()).daily}
+ for(let d=1;d<=8;d++){let regs=state.dayPlan[d].map(id=>byId[id].reg),reg=regs.includes('wajima')?'wajima':regs.includes('noto')?'noto':regs.includes('fukui')?'fukui':regs.includes('toyama')||d===8?'toyama':'kanazawa',r=regionForecast[reg],date=`2026-12-${String(d+2).padStart(2,'0')}`,i=r.time.indexOf(date);if(i<0)continue;let code=r.weather_code[i],kind=code>=71&&code<=77||code>=85&&code<=86?'snow':code>=51?'rain':'sun';forecasts[d]={emoji:kind==='snow'?'❄️':kind==='rain'?'🌧️':'☀️',min:Math.round(r.temperature_2m_min[i]),max:Math.round(r.temperature_2m_max[i]),rain:r.precipitation_probability_max[i]??0};if(!weather[d]||weather[d]==='unknown')weather[d]=kind}
+ persistWeather();$('wxStatus').textContent='已取得 Open-Meteo 預報；越接近出發越可靠。'
+ }catch(e){$('wxStatus').textContent='無法取得線上預報。你仍可手動標註晴／雨／雪。'}
+}
+function renderDayTabsV4(){let html=`<button class="day-tab ${focused==='all'?'active':''}" data-focus="all"><b>全部</b><small>${spots.length} 景點</small></button>`;
+ for(let d=1;d<=8;d++)html+=`<button class="day-tab ${focused===String(d)?'active':''}" data-focus="${d}"><b>D${d} ${DATES[d]}</b><small>${state.dayPlan[d].length} 景點 ${weather[d]&&weather[d]!=='unknown'?({sun:'☀️',rain:'🌧️',snow:'❄️'})[weather[d]]||'':''}</small></button>`;
+ html+=`<button class="day-tab ${focused==='0'?'active':''}" data-focus="0"><b>候補</b><small>${spots.filter(s=>!dateOf(s.id)).length} 景點</small></button>`;$('dayTabs').innerHTML=html;
+ $('dayTabs').querySelectorAll('[data-focus]').forEach(el=>{
+ el.onclick=()=>{focused=el.dataset.focus;renderAll()};el.ondragover=e=>{if(draggedMapId){e.preventDefault();el.classList.add('drop')}};
+ el.ondragleave=()=>el.classList.remove('drop');el.ondrop=e=>{e.preventDefault();el.classList.remove('drop');let id=draggedMapId,to=el.dataset.focus;if(id&&to!=='all'){selected=id;focused=to;assignSpot(id,Number(to),to==='0'?0:state.dayPlan[Number(to)].length);draggedMapId=null}};
+ });
+}
+
+function renderItineraryV4(){let html='';for(let d=1;d<=8;d++){
+ const mode=state.modes[d],seq=mapSequence(d);let cursor=startMinutes(d),legs=[];
+ if(d===1)legs.push('<p><b>✈️ CI370：TPE → TOY</b>｜請以電子機票確認最終時間。</p>');
+ if(d===8)legs.push('<p><b>✈️ CI371：TOY → TPE</b>｜請提前抵達富山機場辦理登機。</p>');
+ for(let i=0;i<seq.length-1;i++){const a=seq[i],b=seq[i+1],t=travel(a,b,mode),mid=Math.round((t.range[0]+t.range[1])/2);
+ let estimated=clock(cursor)+' 出發，約 '+clock(cursor+t.range[0])+'–'+clock(cursor+t.range[1])+' 抵達';
+ legs.push(`<p><b>${a.icon||''} ${escapeHtml(a.name)} → ${b.icon||''} ${escapeHtml(b.name)}</b><br>${mode==='drive'?'🚗 自駕':'🚉 鐵路／公車'} ${t.range[0]}–${t.range[1]} 分｜${escapeHtml(t.via)}｜${estimated}${b.stay?'｜停留 '+b.stay+' 分':''}</p>`);
+ cursor+=mid+(b.stay||0)}
+ html+=`<article class="day-card"><header><span>D${d} · ${LONG_DATES[d]}</span><span class="small">${mode==='drive'?'🚗 自駕':'🚉 大眾交通'}｜${state.startTimes[d]} 出發｜${state.dayPlan[d].length} 景點</span></header><div class="legs">${legs.join('')}</div></article>`;
+ }$('dayCards').innerHTML=html}
+function renderTodosV4(){const key='kanazawa-trip-map-v4-todos';let saved={};try{saved=JSON.parse(localStorage.getItem(key)||'{}')}catch(e){}
+ $('todo').innerHTML=todoItems.map(([id,title,desc])=>`<label><input type="checkbox" data-todo="${id}" ${saved[id]?'checked':''}><span><b>${escapeHtml(title)}</b><br><small>${escapeHtml(desc)}</small></span></label>`).join('');
+ $('todo').querySelectorAll('[data-todo]').forEach(el=>el.onchange=()=>{saved[el.dataset.todo]=el.checked;try{localStorage.setItem(key,JSON.stringify(saved))}catch(e){}})}
+function renderAllV4(){renderDayTabsV4();renderMapPins();renderMapOrder();renderSpotEditor();renderWeather();renderAdvice();renderItineraryV4();renderTodosV4();setupThemeControls()}
+// replace old rendering core with the map-centric V4 one
+renderAll = renderAllV4;
+function doSwap(){let a=Number($('swapA').value),b=Number($('swapB').value);if(a===b)return setStatus('請選擇不同日期');
+ [state.dayPlan[a],state.dayPlan[b]]=[state.dayPlan[b],state.dayPlan[a]];[state.modes[a],state.modes[b]]=[state.modes[b],state.modes[a]];[state.startTimes[a],state.startTimes[b]]=[state.startTimes[b],state.startTimes[a]];persist();setStatus(`已交換 D${a} 與 D${b} 的景點與交通；天氣仍留在原日期。`)}
+$('showAll').onclick=()=>{focused='all';renderAll()};$('fetchWx').onclick=fetchWeather;$('swapBtn').onclick=doSwap;
+for(let d=2;d<=7;d++)for(const id of ['swapA','swapB'])$(id).insertAdjacentHTML('beforeend',`<option value="${d}">D${d} ${DATES[d]}</option>`);
+$('swapA').value='3';$('swapB').value='6';
+$('exportTxt').onclick=exportTxt;
+$('exportJson').onclick=()=>{let blob=new Blob([JSON.stringify({version:5,state,weather},null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='kanazawa_trip_v5.json';a.click();URL.revokeObjectURL(url)};
+$('importJson').onchange=async e=>{try{let raw=JSON.parse(await e.target.files[0].text());if(![4,5].includes(raw.version)||!raw.state?.dayPlan)throw Error('version');state=raw.state;weather=raw.weather||{};try{localStorage.setItem(STORE,JSON.stringify(state))}catch(e){}persistWeather();renderAll();setStatus('已載入備份行程')}catch(e){setStatus('匯入失敗，請選這個版本匯出的 JSON')}};
+$('reset').onclick=()=>{if(confirm('確定還原預設行程？')){state=deepClone(defaultState);persist();setStatus('已還原預設行程')}};
+let activeTheme='kanazawa_core';
+renderMapGeo();renderAll();
+
+// PWA installation, explicit device-local storage and touch-friendly theme selection.
+let pendingInstall=null;
+const THEME_EMOJI={kanazawa_core:'🏯',noto_south:'♨️',wajima_day:'🌾',fukui_dino:'🦖',toyama_day:'🏔️',kanazawa_relax:'🎨'};
+function renderQuickThemes(){
+ const parent=$('themeCards');if(!parent)return;
+ parent.innerHTML=Object.entries(themeGroups).map(([key,t])=>{
+ const day=detectThemeHomeDay(t),active=key===activeTheme?' selected':'';
+ return `<button type="button" class="theme-card${active}" data-theme="${key}" aria-pressed="${key===activeTheme}"><span class="emoji">${THEME_EMOJI[key]||'📍'}</span><strong>${escapeHtml(t.name)}</strong><small>${day?`目前 D${day} · ${DATES[day]}`:'目前候補'} · ${t.ids.length} 景點</small></button>`}).join('');
+ parent.querySelectorAll('[data-theme]').forEach(btn=>btn.onclick=()=>{
+ activeTheme=btn.dataset.theme;renderQuickThemes();const edit=$('themeKey');if(edit)edit.value=activeTheme;
+ });
+ const target=$('quickThemeDay'),prev=target.value||'3';
+ target.innerHTML=Array.from({length:8},(_,i)=>`<option value="${i+1}">D${i+1} · ${DATES[i+1]}</option>`).join('');target.value=prev;
+ $('themeHint').textContent=`${themeGroups[activeTheme].name} → D${target.value}`;
+ target.onchange=()=>{$('themeHint').textContent=`${themeGroups[activeTheme].name} → D${target.value}`};
+}
+const coreRenderAll=renderAll;
+renderAll=function(){coreRenderAll();renderQuickThemes()};
+$('quickMoveTheme').onclick=()=>moveTheme(activeTheme,Number($('quickThemeDay').value));
+$('quickSwapTheme').onclick=()=>swapTheme(activeTheme,Number($('quickThemeDay').value));
+$('installHelp').onclick=()=>{const p=$('helpPanel');p.hidden=!p.hidden;if(!p.hidden)p.innerHTML=`<h3>📲 安裝到主畫面</h3><p><b>iPhone / iPad（Safari）</b>：先開啟已上線的 HTTPS 網址 → 點「分享」 →「加入主畫面」→「加入」。請用 Safari 開啟網站；單純打開下載的 HTML 檔不具備安裝與離線快取功能。</p><p><b>Windows Edge</b>：開啟 HTTPS 網址 → 網址列右側「安裝此網站為應用程式」或右上角「… → 應用程式 → 安裝此網站為應用程式」。</p><p><b>iPad / iPhone</b> 的地圖卡如不方便拖曳，可以點景點選日期或使用上方主題卡片整組交換。</p>`};
+$('backupHelp').onclick=()=>{const p=$('helpPanel');p.hidden=!p.hidden;if(!p.hidden)p.innerHTML=`<h3>🔁 iPhone、iPad、Edge 搬移行程</h3><p>每台裝置的行程預設各自儲存，<b>不會自動同步</b>。在原裝置按「備份行程 JSON」儲存檔案，透過 AirDrop、iCloud Drive 或 OneDrive 傳到另一台，再點「匯入設定」選檔。</p><p>同一台裝置重新打開 App，會自動還原上次的日期、主題、景點順序與天氣標註。清除網站資料或改用不同網址可能會失去本機資料，建議定期備份 JSON。</p>`};
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();pendingInstall=e;$('installPwa').hidden=false});
+$('installPwa').onclick=async()=>{if(!pendingInstall)return;pendingInstall.prompt();await pendingInstall.userChoice;pendingInstall=null;$('installPwa').hidden=true};
+window.addEventListener('appinstalled',()=>{$('installPwa').hidden=true});
+function updateConnection(){const x=$('connectionState');if(!x)return;if(location.protocol!=='https:'&&!['localhost','127.0.0.1'].includes(location.hostname)){x.textContent='預覽模式：須部署至 HTTPS 網站才能安裝與啟用離線快取';return}x.textContent=navigator.onLine?'✅ 可離線查看已快取的地圖與行程；天氣預報需要連線':'📴 離線中：仍可編輯行程，天氣預報暫停'}
+window.addEventListener('online',updateConnection);window.addEventListener('offline',updateConnection);updateConnection();
+if('serviceWorker' in navigator && (location.protocol==='https:'||location.hostname==='localhost'||location.hostname==='127.0.0.1')){
+ window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js',{scope:'./'}).catch(err=>console.warn('離線快取無法啟用:',err)));
+}
+renderQuickThemes();
+</script></body></html>
